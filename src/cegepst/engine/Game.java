@@ -9,7 +9,7 @@ public abstract class Game {
     private boolean playing = true;
 
     public Game() {
-        renderingEngine = new RenderingEngine();
+        renderingEngine = RenderingEngine.getInstance();
     }
 
     public abstract void initialize();

@@ -1,5 +1,6 @@
 package cegepst.engine.entity;
 
+import cegepst.engine.Buffer;
 import cegepst.engine.controls.Direction;
 
 import java.awt.*;
@@ -12,6 +13,11 @@ public abstract class MovableEntity extends UpdatableEntity {
     private boolean moved;
     private int lastX;
     private int lastY;
+
+    @Override
+    public void update() {
+        moved = false;
+    }
 
     public MovableEntity() {
         collision = new Collision(this);
@@ -42,11 +48,16 @@ public abstract class MovableEntity extends UpdatableEntity {
         int allowedDistance = collision.getAllowedSpeed(direction);
         x += direction.getVelocityX(allowedDistance);
         y += direction.getVelocityY(allowedDistance);
-        if (x != lastX || y != lastY) {
-            moved = true;
-        }
+        moved = (x != lastX || y != lastY);
         lastX = x;
         lastY = y;
+    }
+
+    public void drawHitBox(Buffer buffer) {
+        Rectangle rectangle = getHitBox();
+        Color color = new Color(255, 0, 0, 200);
+        buffer.drawRectangle(rectangle.x, rectangle.y,
+                rectangle.width, rectangle.height, color);
     }
 
     protected Rectangle getHitBox() {

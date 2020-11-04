@@ -1,7 +1,9 @@
 package cegepst;
 
 import cegepst.engine.Buffer;
+import cegepst.engine.CollidableRepository;
 import cegepst.engine.Game;
+import cegepst.engine.entity.StaticEntity;
 
 public class TankGame extends Game {
 

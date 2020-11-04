@@ -4,8 +4,13 @@ import cegepst.engine.controls.Direction;
 
 public abstract class MovableEntity extends UpdatableEntity {
 
+    private Collision collision;
     private Direction direction = Direction.UP;
     private int speed = 1;
+
+    public MovableEntity() {
+        collision = new Collision(this);
+    }
 
     public void moveLeft() {
         move(Direction.LEFT);
@@ -25,9 +30,12 @@ public abstract class MovableEntity extends UpdatableEntity {
 
     public void move(Direction direction) {
         this.direction = direction;
-        x += direction.getVelocityX(speed);
-        y += direction.getVelocityY(speed);
+        int allowedDistance = collision.getAllowedSpeed(direction);
+        x += direction.getVelocityX(allowedDistance);
+        y += direction.getVelocityY(allowedDistance);
     }
+
+
 
     public void setDirection(Direction direction) {
         this.direction = direction;
